@@ -1,0 +1,30 @@
+== eco: cooling down (CPU 37900)
+eco info
+eco cpu_single
+eco cpu_multi
+eco burst
+eco mem_bw
+eco mem_latency
+eco gpu
+eco sustained
+eco ram_pressure
+eco done
+| Metric | normal | demon | eco |
+|---|---|---|---|
+| CPU 1 core (ops/s) | 669.5 | 677.1 | 485.3 |
+| CPU 8 cores (ops/s) | 3368.5 | 3304.3 | 2924.6 |
+| Burst after idle (ms, median/worst) | 178 / 180 | 59 / 61 | 178 / 181 |
+| RAM copy (MB/s) | 3330 | 3544 | 2374 |
+| RAM latency (ns) | 281 | 273 | 297 |
+| GPU (passes/s) | 43.0 | 44.5 | 27.0 |
+| GPU (Mpix/s) | 35 | 36 | 22 |
+| Sustained GPU passes/s, first → last | 44 → 44 (+1%) | 41 → 41 (-1%) | 26 → 27 (+4%) |
+| Sustained CPU ops/s, first → last | 2582 → 4403 (+70%) | 2589 → 4424 (+71%) | 2032 → 3084 (+52%) |
+| Max CPU temp (C) | 50.0 | 51.2 | 41.8 |
+| Max battery temp (C) | 30.0 | 31.0 | 31.0 |
+| Min f0 / f4 under test (MHz) | 900 / 400 | 2001 / 1500 | 900 / 400 |
+| GPU MHz seen | 400-650 | 650-650 | 400-400 |
+| PPM thermal limiting (samples) | 0 | 0 | 0 |
+| RAM pressure reached (MB) | 512 | 512 | 512 |
+| RAM commit ms per 32 MB (median) | 43 | 23 | 53 |
+| RAM re-read all (ms) | 48 | 43 | 69 |

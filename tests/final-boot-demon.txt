@@ -1,0 +1,16 @@
+uptime=86.45 boot_reason=reboot,adb history=reboot,adb,1790706749 kernel_panic,1790706267 
+magisk service execs this boot: 3  once-dir: /dev/g25_service.once
+profile=demon battery_saver=0
+policy0: performance max=2001000 cur=2001000
+policy4: performance max=1500000 cur=1500000
+ppm caps: 0: min_freq_idx = -1, max_freq_idx = -1 1: min_freq_idx = -1, max_freq_idx = -1 
+gpu: g_cur_opp_freq = 650000, g_cur_opp_volt = 80000, g_cur_opp_vsram_volt = 87500 | Keeping OPP frequency is enabled
+[0] freq = 650000, volt = 80000, vsram = 87500 | g_thermal_protect_limited_ignore_state = 1
+mi_thermald=stopped ppm_thermal=THERMAL: disabled fpsgo=0 cfp=0 system-background=4-7 cfs=1000000/130000
+trip_0=110000 0 mtktscpu-sysrst
+trip_1=65000 0 cpu_adaptive_0
+00	110000	0	mtktscharger-sysrst
+trip_0_temp=55000 cooldev0=mtktsbattery-sysrst trip_0_temp=95000 cooldev0=mtktsAP-sysrst 
+swappiness=100
+-- write errors: 0
+MemAvailable:     806016 kB

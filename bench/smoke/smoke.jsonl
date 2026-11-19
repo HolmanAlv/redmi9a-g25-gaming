@@ -1,0 +1,12 @@
+{"profile": "smoke", "phase": "info", "t": 1790731631396, "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36", "cores": 8, "gpu": "ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)", "w": 1600, "h": 508}
+{"profile": "smoke", "phase": "cpu_single", "t": 1790731634469, "ops_s": 676.6215585629305}
+{"profile": "smoke", "phase": "cpu_multi", "t": 1790731640499, "ops_s": 3368.461046232101}
+{"profile": "smoke", "phase": "burst", "t": 1790731653155, "median_ms": 73.69999999925494, "max_ms": 74.5}
+{"profile": "smoke", "phase": "mem_bw", "t": 1790731653416, "copy_mb_s": 3522.2894881095363}
+{"profile": "smoke", "phase": "mem_latency", "t": 1790731661279, "ns": 276.84999999962747, "p": 12845255}
+{"profile": "smoke", "phase": "gpu", "t": 1790731679491, "passes_s": 44.470915227317846, "mpix_s": 36.14595989676394}
+{"profile": "smoke", "phase": "sustained_tick", "t": 1790731689620, "i": 1, "gpu_ps": 41.20484553136039, "cpu_ops_s": 2464.7399072940525}
+{"profile": "smoke", "phase": "sustained", "t": 1790731699574, "series": [{"gpu_ps": 41.20484553136039, "cpu_ops_s": 2464.7399072940525}]}
+{"profile": "smoke", "phase": "ram_step", "t": 1790731699647, "mb": 32, "ms": 25.199999999254942}
+{"profile": "smoke", "phase": "ram_pressure", "t": 1790731699733, "reached_mb": 32, "alloc_ms_per_32mb": 25.199999999254942, "reread_ms": 3.399999998509884, "sum": 8192}
+{"profile": "smoke", "phase": "done", "t": 1790731699755}

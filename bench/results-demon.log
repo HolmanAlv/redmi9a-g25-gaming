@@ -1,0 +1,30 @@
+== demon: cooling down (CPU 35700)
+demon info
+demon cpu_single
+demon cpu_multi
+demon burst
+demon mem_bw
+demon mem_latency
+demon gpu
+demon sustained
+demon ram_pressure
+demon done
+| Metric | normal | demon |
+|---|---|---|
+| CPU 1 core (ops/s) | 669.5 | 677.1 |
+| CPU 8 cores (ops/s) | 3368.5 | 3304.3 |
+| Burst after idle (ms, median/worst) | 178 / 180 | 59 / 61 |
+| RAM copy (MB/s) | 3330 | 3544 |
+| RAM latency (ns) | 281 | 273 |
+| GPU (passes/s) | 43.0 | 44.5 |
+| GPU (Mpix/s) | 35 | 36 |
+| Sustained GPU passes/s, first → last | 44 → 44 (+1%) | 41 → 41 (-1%) |
+| Sustained CPU ops/s, first → last | 2582 → 4403 (+70%) | 2589 → 4424 (+71%) |
+| Max CPU temp (C) | 50.0 | 51.2 |
+| Max battery temp (C) | 30.0 | 31.0 |
+| Min f0 / f4 under test (MHz) | 900 / 400 | 2001 / 1500 |
+| GPU MHz seen | 400-650 | 650-650 |
+| PPM thermal limiting (samples) | 0 | 0 |
+| RAM pressure reached (MB) | 512 | 512 |
+| RAM commit ms per 32 MB (median) | 43 | 23 |
+| RAM re-read all (ms) | 48 | 43 |

@@ -1,0 +1,30 @@
+== normal: cooling down (CPU 33400)
+normal info
+normal cpu_single
+normal cpu_multi
+normal burst
+normal mem_bw
+normal mem_latency
+normal gpu
+normal sustained
+normal ram_pressure
+normal done
+| Metric | normal |
+|---|---|
+| CPU 1 core (ops/s) | 669.5 |
+| CPU 8 cores (ops/s) | 3368.5 |
+| Burst after idle (ms, median/worst) | 178 / 180 |
+| RAM copy (MB/s) | 3330 |
+| RAM latency (ns) | 281 |
+| GPU (passes/s) | 43.0 |
+| GPU (Mpix/s) | 35 |
+| Sustained GPU passes/s, first → last | 44 → 44 (+1%) |
+| Sustained CPU ops/s, first → last | 2582 → 4403 (+70%) |
+| Max CPU temp (C) | 50.0 |
+| Max battery temp (C) | 30.0 |
+| Min f0 / f4 under test (MHz) | 900 / 400 |
+| GPU MHz seen | 400-650 |
+| PPM thermal limiting (samples) | 0 |
+| RAM pressure reached (MB) | 512 |
+| RAM commit ms per 32 MB (median) | 43 |
+| RAM re-read all (ms) | 48 |

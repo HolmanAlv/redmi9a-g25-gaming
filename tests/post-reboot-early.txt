@@ -1,0 +1,18 @@
+uptime_s=30.21 profile_log=2026-09-29 12:53
+gov0=schedplus gov4=schedplus
+cpuset/top-app=0-7
+cpuset/foreground=0-7
+cpuset/background=4-7
+cpuset/system-background=2-7
+cpuset/restricted=0-7
+vm/swappiness=60
+vm/vfs_cache_pressure=100
+vm/min_free_kbytes=5104
+vm/extra_free_kbytes=13500
+kernel/sched_latency_ns=10000000
+kernel/sched_min_granularity_ns=3000000
+kernel/sched_wakeup_granularity_ns=2000000
+kernel/sched_migration_cost_ns=200000
+heapsize=512m heapgrowthlimit=192m bg_apps_limit=
+mmcblk0 scheduler=noop deadline [cfq]  read_ahead_kb=512
+MemAvailable:     973804 kB

@@ -1,0 +1,12 @@
+# Device backups (settings, getprop, package list): personal
+backup-*/
+# Third-party APKs and Android SDK pieces: download them yourself
+apks/
+tools/
+# Build outputs and the signing key
+app/build/
+app/*.apk
+app/*.idsig
+app/*.keystore
+# Proprietary MediaTek/Xiaomi vendor files: copy them from your own stock MIUI (see README)
+module/nad_hwcodec_fix/system/

@@ -1,0 +1,6 @@
+1790705837
+workingset_refault 1043526
+pswpin 6498
+pswpout 59756
+pgmajfault 22658
+MemAvailable:     782784 kB

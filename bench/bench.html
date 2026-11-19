@@ -1,0 +1,186 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>G25 bench</title>
+<style>
+html,body{margin:0;height:100%;background:#000;color:#8f8;font:13px monospace}
+canvas{position:fixed;inset:0;width:100%;height:100%}
+#log{position:fixed;left:0;right:0;top:0;padding:8px;background:#000c;white-space:pre-wrap}
+</style></head><body><canvas id="c"></canvas><div id="log"></div>
+<script>
+'use strict';
+// CPU / GPU / RAM stress benchmark to compare the g25 profiles. Each phase is POSTed to /result.
+const q = new URLSearchParams(location.search);
+const PROFILE = q.get('profile') || 'manual';
+const SUSTAIN_S = +(q.get('sustain') || 300);  // combined CPU+GPU stress length
+const MEM_MAX_MB = +(q.get('memmax') || 512);  // RAM pressure target
+const ITER = +(q.get('iter') || 96);            // shader loop length (GPU cost per pixel)
+const WORKERS = 8;                              // one per core
+const UNIT = 100000;                            // work() iterations per counted op
+
+const logEl = document.getElementById('log');
+const log = s => { logEl.textContent += s + '\n'; };
+const post = (phase, data) => fetch('/result', {method: 'POST',
+  body: JSON.stringify({profile: PROFILE, phase, t: Date.now(), ...data})}).catch(() => {});
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+const median = a => [...a].sort((x, y) => x - y)[a.length >> 1];
+
+// Fixed integer + float mix: the unit of CPU work everywhere below.
+function work(n) {
+  let x = 0, a = 1.0001;
+  for (let i = 0; i < n; i++) { x = (x + Math.imul(i, 2654435761)) | 0; a = a * 1.0000001 + Math.sqrt(i & 1023); }
+  return x + a;
+}
+
+// Worker: counts work(UNIT) calls and reports them every 250 ms.
+const workerUrl = URL.createObjectURL(new Blob([work.toString() + `
+let on = false;
+onmessage = e => { on = e.data === 'go'; if (on) tick(); };
+function tick() { let n = 0; const t0 = performance.now();
+  while (performance.now() - t0 < 250) { work(${UNIT}); n++; }
+  postMessage(n); if (on) setTimeout(tick, 0); }`], {type: 'text/javascript'}));
+
+function startWorkers() {
+  const ws = [], s = {ops: 0};
+  for (let i = 0; i < WORKERS; i++) {
+    const w = new Worker(workerUrl); w.onmessage = e => { s.ops += e.data; }; w.postMessage('go'); ws.push(w);
+  }
+  s.stop = () => ws.forEach(w => w.terminate());
+  return s;
+}
+
+async function cpuSingle() {
+  for (let i = 0; i < 20; i++) work(UNIT);  // JIT warm-up
+  let n = 0; const t0 = performance.now();
+  while (performance.now() - t0 < 3000) { work(UNIT); n++; }
+  return {ops_s: n / ((performance.now() - t0) / 1000)};
+}
+
+async function cpuMulti() {
+  const s = startWorkers(); await sleep(1000);
+  const o0 = s.ops, t0 = performance.now(); await sleep(5000);
+  const r = {ops_s: (s.ops - o0) / ((performance.now() - t0) / 1000)}; s.stop(); return r;
+}
+
+// A frame-sized job (~50 ms at full clock) after 1.5 s idle: shows how fast the governor ramps up.
+async function burst() {
+  const ms = [];
+  for (let i = 0; i < 8; i++) { await sleep(1500); const t0 = performance.now(); work(30 * UNIT); ms.push(performance.now() - t0); }
+  return {median_ms: median(ms), max_ms: Math.max(...ms)};
+}
+
+async function memBandwidth() {
+  const a = new Float64Array(4 << 20), b = new Float64Array(4 << 20);  // 32 MB each, far beyond cache
+  a.fill(1); b.set(a);
+  const t0 = performance.now(); for (let i = 0; i < 10; i++) b.set(a);
+  return {copy_mb_s: 10 * 2 * 32 / ((performance.now() - t0) / 1000)};  // read + write
+}
+
+async function memLatency() {
+  const n = 16 << 20, next = new Int32Array(n);  // 64 MB single-cycle random ring (Sattolo)
+  for (let i = 0; i < n; i++) next[i] = i;
+  for (let i = n - 1; i > 0; i--) { const j = Math.floor(Math.random() * i), t = next[i]; next[i] = next[j]; next[j] = t; }
+  let p = 0; const steps = 4e6, t0 = performance.now();
+  for (let i = 0; i < steps; i++) p = next[p];
+  return {ns: (performance.now() - t0) * 1e6 / steps, p};
+}
+
+const canvas = document.getElementById('c');
+const gl = canvas.getContext('webgl', {antialias: false});
+let tLoc = null;
+function gpuSetup() {  // after layout: sizing at script start gave a 0x0 canvas
+  canvas.width = Math.round((innerWidth || screen.width) * devicePixelRatio);
+  canvas.height = Math.round((innerHeight || screen.height) * devicePixelRatio);
+  if (!canvas.width || !canvas.height) throw new Error('canvas has no size');
+  gl.viewport(0, 0, canvas.width, canvas.height);
+  const sh = (type, src) => {
+    const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+    if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s));
+    return s;
+  };
+  const pr = gl.createProgram();
+  gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 v; void main(){ gl_Position = vec4(v, 0.0, 1.0); }'));
+  gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, `precision highp float; uniform float t; uniform vec2 r;
+    void main(){ vec2 p = gl_FragCoord.xy / r; float v = 0.0;
+      for (int i = 0; i < ${ITER}; i++) { p = vec2(sin(p.x * 3.1 + t) + cos(p.y * 2.7), cos(p.x * 1.7) - sin(p.y * 3.3 + t)); v += dot(p, p) * 0.01; }
+      gl_FragColor = vec4(fract(v), p * 0.5 + 0.5, 1.0); }`));
+  gl.linkProgram(pr); gl.useProgram(pr);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);  // full-screen triangle
+  const v = gl.getAttribLocation(pr, 'v'); gl.enableVertexAttribArray(v); gl.vertexAttribPointer(v, 2, gl.FLOAT, false, 0, 0);
+  gl.uniform2f(gl.getUniformLocation(pr, 'r'), canvas.width, canvas.height);
+  tLoc = gl.getUniformLocation(pr, 't');
+}
+
+// Full-screen shader passes per second; readPixels makes each batch wait for the GPU.
+const px = new Uint8Array(4);
+async function gpuRun(seconds, onTick) {
+  let passes = 0, t = 0, lastPasses = 0;
+  const t0 = performance.now(); let last = t0;
+  while (performance.now() - t0 < seconds * 1000) {
+    for (let i = 0; i < 8; i++) { gl.uniform1f(tLoc, t += 0.01); gl.drawArrays(gl.TRIANGLES, 0, 3); }
+    gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); passes += 8;
+    const now = performance.now();
+    if (onTick && now - last >= 10000) { onTick((passes - lastPasses) / ((now - last) / 1000)); last = now; lastPasses = passes; }
+    await sleep(0);
+  }
+  return passes / ((performance.now() - t0) / 1000);
+}
+
+async function gpuTest() {
+  await gpuRun(3);
+  const ps = await gpuRun(15);
+  return {passes_s: ps, mpix_s: ps * canvas.width * canvas.height / 1e6};
+}
+
+// Everything at once for SUSTAIN_S: shows thermal throttling over time.
+async function sustained() {
+  const s = startWorkers(), series = [];
+  let o0 = s.ops, tw = performance.now();
+  await gpuRun(SUSTAIN_S, gpuPs => {
+    const now = performance.now(), cpu = (s.ops - o0) / ((now - tw) / 1000); o0 = s.ops; tw = now;
+    series.push({gpu_ps: gpuPs, cpu_ops_s: cpu});
+    post('sustained_tick', {i: series.length, gpu_ps: gpuPs, cpu_ops_s: cpu});
+    log(`  ${series.length * 10}s  gpu ${gpuPs.toFixed(1)}/s  cpu ${cpu.toFixed(0)}/s`);
+  });
+  s.stop();
+  return {series};
+}
+
+// Commit RAM in 32 MB chunks up to MEM_MAX_MB, then read it all back (pages come back from zram).
+async function ramPressure() {
+  const keep = [], chunk = 32 << 20, times = []; let mb = 0;
+  try {
+    while (mb < MEM_MAX_MB) {
+      const t0 = performance.now(), a = new Uint8Array(chunk);
+      for (let i = 0; i < chunk; i += 4096) a[i] = 1;  // touch every page so it is really committed
+      keep.push(a); mb += 32; times.push(performance.now() - t0);
+      post('ram_step', {mb, ms: times[times.length - 1]}); await sleep(50);
+    }
+  } catch (e) { log('  RAM allocation failed at ' + mb + ' MB: ' + e); }
+  const t0 = performance.now(); let sum = 0;
+  for (const a of keep) for (let i = 0; i < chunk; i += 4096) sum += a[i];
+  const reread_ms = performance.now() - t0; keep.length = 0;
+  return {reached_mb: mb, alloc_ms_per_32mb: median(times), reread_ms, sum};
+}
+
+(async () => {
+  try { await navigator.wakeLock.request('screen'); } catch (e) { log('no wake lock: ' + e); }
+  await sleep(3000);
+  if (gl) gpuSetup();
+  const dbg = gl && gl.getExtension('WEBGL_debug_renderer_info');
+  const info = {ua: navigator.userAgent, cores: navigator.hardwareConcurrency,
+    gpu: gl ? gl.getParameter(dbg ? dbg.UNMASKED_RENDERER_WEBGL : gl.RENDERER) : 'NO WEBGL',
+    w: canvas.width, h: canvas.height};
+  log(`profile ${PROFILE} | ${info.gpu} | ${info.w}x${info.h}`); await post('info', info);
+  const phases = [['cpu_single', cpuSingle], ['cpu_multi', cpuMulti], ['burst', burst],
+    ['mem_bw', memBandwidth], ['mem_latency', memLatency]];
+  if (gl) phases.push(['gpu', gpuTest], ['sustained', sustained]);
+  phases.push(['ram_pressure', ramPressure]);
+  for (const [name, fn] of phases) {
+    log(name + '...');
+    try { const r = await fn(); log('  ' + JSON.stringify(r).slice(0, 160)); await post(name, r); }
+    catch (e) { log('  ERROR ' + e); await post(name, {error: String(e)}); }
+  }
+  await post('done', {}); log('DONE');
+})();
+</script></body></html>

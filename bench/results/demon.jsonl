@@ -1,0 +1,55 @@
+{"profile": "demon", "phase": "info", "t": 1790732892589, "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Mobile Safari/537.36", "cores": 8, "gpu": "ANGLE (Imagination Technologies, PowerVR Rogue GE8320, OpenGL ES 3.2)", "w": 1600, "h": 508}
+{"profile": "demon", "phase": "cpu_single", "t": 1790732895663, "ops_s": 677.1301942745465}
+{"profile": "demon", "phase": "cpu_multi", "t": 1790732901688, "ops_s": 3304.2678292873206}
+{"profile": "demon", "phase": "burst", "t": 1790732914214, "median_ms": 59.30000000074506, "max_ms": 60.69999999925494}
+{"profile": "demon", "phase": "mem_bw", "t": 1790732914478, "copy_mb_s": 3543.7430785975603}
+{"profile": "demon", "phase": "mem_latency", "t": 1790732922333, "ns": 272.875, "p": 7976222}
+{"profile": "demon", "phase": "gpu", "t": 1790732940529, "passes_s": 44.473858371939116, "mpix_s": 36.14835208471211}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790732950676, "i": 1, "gpu_ps": 41.14982095870259, "cpu_ops_s": 2588.724035608309}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790732960687, "i": 2, "gpu_ps": 40.74987765050203, "cpu_ops_s": 1752.1324836697918}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790732970771, "i": 3, "gpu_ps": 41.25469817625247, "cpu_ops_s": 1741.0275989958855}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790732980847, "i": 4, "gpu_ps": 41.28663444457185, "cpu_ops_s": 1787.8126240571655}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790732990862, "i": 5, "gpu_ps": 40.7405188424839, "cpu_ops_s": 1759.6485096609915}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733000915, "i": 6, "gpu_ps": 40.58490002984183, "cpu_ops_s": 1748.7317218740673}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733011030, "i": 7, "gpu_ps": 41.1266324603901, "cpu_ops_s": 1740.4672222720378}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733021055, "i": 8, "gpu_ps": 40.69663055837263, "cpu_ops_s": 1790.651744568396}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733031068, "i": 9, "gpu_ps": 40.74865669257646, "cpu_ops_s": 1757.2682692981223}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733041251, "i": 10, "gpu_ps": 40.84999410816795, "cpu_ops_s": 1728.875141159719}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733051378, "i": 11, "gpu_ps": 41.08114513691767, "cpu_ops_s": 1776.1494706907338}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733061440, "i": 12, "gpu_ps": 41.342025759268324, "cpu_ops_s": 1740.7550957533272}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733071483, "i": 13, "gpu_ps": 40.626524739365934, "cpu_ops_s": 1753.4129268026832}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733081593, "i": 14, "gpu_ps": 41.14615787859602, "cpu_ops_s": 1760.580793843772}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733091654, "i": 15, "gpu_ps": 40.55141979664355, "cpu_ops_s": 1760.0930288034092}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733101761, "i": 16, "gpu_ps": 41.15918512729586, "cpu_ops_s": 1750.766795290393}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733111930, "i": 17, "gpu_ps": 40.91266719118804, "cpu_ops_s": 1753.2282333963462}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733122095, "i": 18, "gpu_ps": 40.92353398325377, "cpu_ops_s": 2109.648605044817}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733132196, "i": 19, "gpu_ps": 41.18118732490875, "cpu_ops_s": 3594.7414791572387}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733142327, "i": 20, "gpu_ps": 41.06330263455414, "cpu_ops_s": 4440.91285979357}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733152491, "i": 21, "gpu_ps": 40.9295735846949, "cpu_ops_s": 4386.9850546556145}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733162647, "i": 22, "gpu_ps": 40.96100827097282, "cpu_ops_s": 4457.955888144938}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733172800, "i": 23, "gpu_ps": 40.97472568602515, "cpu_ops_s": 4386.856568760068}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733182839, "i": 24, "gpu_ps": 40.6406885010788, "cpu_ops_s": 4409.71392142833}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733192951, "i": 25, "gpu_ps": 41.137613227315775, "cpu_ops_s": 4468.924598269468}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733203090, "i": 26, "gpu_ps": 41.02847336602352, "cpu_ops_s": 4361.685340066598}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733213282, "i": 27, "gpu_ps": 40.81792849012316, "cpu_ops_s": 4414.223478157838}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733223377, "i": 28, "gpu_ps": 41.20851906884596, "cpu_ops_s": 4480.435859336305}
+{"profile": "demon", "phase": "sustained_tick", "t": 1790733233399, "i": 29, "gpu_ps": 40.709218442869364, "cpu_ops_s": 4423.834848287988}
+{"profile": "demon", "phase": "sustained", "t": 1790733240612, "series": [{"gpu_ps": 41.14982095870259, "cpu_ops_s": 2588.724035608309}, {"gpu_ps": 40.74987765050203, "cpu_ops_s": 1752.1324836697918}, {"gpu_ps": 41.25469817625247, "cpu_ops_s": 1741.0275989958855}, {"gpu_ps": 41.28663444457185, "cpu_ops_s": 1787.8126240571655}, {"gpu_ps": 40.7405188424839, "cpu_ops_s": 1759.6485096609915}, {"gpu_ps": 40.58490002984183, "cpu_ops_s": 1748.7317218740673}, {"gpu_ps": 41.1266324603901, "cpu_ops_s": 1740.4672222720378}, {"gpu_ps": 40.69663055837263, "cpu_ops_s": 1790.651744568396}, {"gpu_ps": 40.74865669257646, "cpu_ops_s": 1757.2682692981223}, {"gpu_ps": 40.84999410816795, "cpu_ops_s": 1728.875141159719}, {"gpu_ps": 41.08114513691767, "cpu_ops_s": 1776.1494706907338}, {"gpu_ps": 41.342025759268324, "cpu_ops_s": 1740.7550957533272}, {"gpu_ps": 40.626524739365934, "cpu_ops_s": 1753.4129268026832}, {"gpu_ps": 41.14615787859602, "cpu_ops_s": 1760.580793843772}, {"gpu_ps": 40.55141979664355, "cpu_ops_s": 1760.0930288034092}, {"gpu_ps": 41.15918512729586, "cpu_ops_s": 1750.766795290393}, {"gpu_ps": 40.91266719118804, "cpu_ops_s": 1753.2282333963462}, {"gpu_ps": 40.92353398325377, "cpu_ops_s": 2109.648605044817}, {"gpu_ps": 41.18118732490875, "cpu_ops_s": 3594.7414791572387}, {"gpu_ps": 41.06330263455414, "cpu_ops_s": 4440.91285979357}, {"gpu_ps": 40.9295735846949, "cpu_ops_s": 4386.9850546556145}, {"gpu_ps": 40.96100827097282, "cpu_ops_s": 4457.955888144938}, {"gpu_ps": 40.97472568602515, "cpu_ops_s": 4386.856568760068}, {"gpu_ps": 40.6406885010788, "cpu_ops_s": 4409.71392142833}, {"gpu_ps": 41.137613227315775, "cpu_ops_s": 4468.924598269468}, {"gpu_ps": 41.02847336602352, "cpu_ops_s": 4361.685340066598}, {"gpu_ps": 40.81792849012316, "cpu_ops_s": 4414.223478157838}, {"gpu_ps": 41.20851906884596, "cpu_ops_s": 4480.435859336305}, {"gpu_ps": 40.709218442869364, "cpu_ops_s": 4423.834848287988}]}
+{"profile": "demon", "phase": "ram_step", "t": 1790733240714, "mb": 32, "ms": 36.100000001490116}
+{"profile": "demon", "phase": "ram_step", "t": 1790733240804, "mb": 64, "ms": 20.799999997019768}
+{"profile": "demon", "phase": "ram_step", "t": 1790733240889, "mb": 96, "ms": 25.899999998509884}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241025, "mb": 128, "ms": 76.60000000149012}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241163, "mb": 160, "ms": 78.60000000149012}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241241, "mb": 192, "ms": 18.699999999254942}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241319, "mb": 224, "ms": 18.799999997019768}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241401, "mb": 256, "ms": 22.700000002980232}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241474, "mb": 288, "ms": 18.800000000745058}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241546, "mb": 320, "ms": 18.899999998509884}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241620, "mb": 352, "ms": 20.100000001490116}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241696, "mb": 384, "ms": 23.299999997019768}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241779, "mb": 416, "ms": 29.5}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241851, "mb": 448, "ms": 19.299999997019768}
+{"profile": "demon", "phase": "ram_step", "t": 1790733241932, "mb": 480, "ms": 26.399999998509884}
+{"profile": "demon", "phase": "ram_step", "t": 1790733242007, "mb": 512, "ms": 22.600000001490116}
+{"profile": "demon", "phase": "ram_pressure", "t": 1790733242105, "reached_mb": 512, "alloc_ms_per_32mb": 22.700000002980232, "reread_ms": 42.69999999925494, "sum": 131072}
+{"profile": "demon", "phase": "done", "t": 1790733242125}

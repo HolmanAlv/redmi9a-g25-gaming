@@ -1,0 +1,10 @@
+profile=normal battery_saver=0
+policy0: interactive max=2001000 cur=2001000
+policy4: interactive max=1500000 cur=1500000
+ppm caps: 0: min_freq_idx = -1, max_freq_idx = -1 1: min_freq_idx = -1, max_freq_idx = -1 
+gpu: g_cur_opp_freq = 400000, g_cur_opp_volt = 65000, g_cur_opp_vsram_volt = 87500 | Keeping OPP frequency is disabled | g_thermal_protect_limited_ignore_state = 0
+mi_thermald=running ppm_thermal=THERMAL: enabled fpsgo=1 cfp=1 system-background=2-7
+trip_0=117000 0 mtktscpu-sysrst
+trip_1=65000 0 cpu_adaptive_0
+00	120000	0	mtktscharger-sysrst
+trip_0_temp=60000 cooldev0=mtktsbattery-sysrst trip_0_temp=100000 cooldev0=mtktsAP-sysrst 
